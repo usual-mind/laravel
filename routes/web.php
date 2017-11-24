@@ -113,3 +113,16 @@ Route::prefix('admin')->group(function () {
         return 'This is prefix route';
     });
 });
+
+//  中间件
+Route::group(['middleware' => 'token'], function () {
+    Route::get('middle', function () {
+        return 'this is middleware';
+    });
+});
+
+//  中间件参数，验证角色CheckRole
+Route::put('post/{id}', function ($id) {
+    //
+})->middleware('role:editor');
+
