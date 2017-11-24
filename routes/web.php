@@ -47,7 +47,7 @@ Route::redirect('/foo','hello', 301);
 
 //  访问页面的两种方式
 Route::get('/hey', function () {
-   return view('hey', ['website' => 'CSRF验证失败']);
+   return view('hey', ['website' => '中间件验证失败']);
 })->name('hey');
 
 Route::view('view', 'hey', ['website' => 'Laravel 学院']);
@@ -149,5 +149,6 @@ Route::prefix('controller')->group(function () {
     Route::get('user/{id}', 'UserController@show');
     //通过 __invoke() 方法实现单动作控制器
     Route::get('show/{id}', 'ShowProfile');
+    Route::get('test', 'UserController@test');
 });
 
