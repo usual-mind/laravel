@@ -126,3 +126,17 @@ Route::put('post/{id}', function ($id) {
     //
 })->middleware('role:editor');
 
+
+
+//  CSRF 验证
+Route::get('form_without_csrf_token', function (){
+    return '<form method="POST" action="/hello_from_form"><button type="submit">提交</button></form>';
+});
+
+Route::get('form_with_csrf_token', function () {
+    return '<form method="POST" action="/hello_from_form">' . csrf_field() . '<button type="submit">提交</button></form>';
+});
+
+Route::post('hello_from_form', function (){
+    return 'hello laravel!';
+});
