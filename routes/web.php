@@ -42,12 +42,10 @@ Route::any('bar', function () {
 Route::get('from', function () {
     return '<form method="POST" action="/foo"><input type="hidden" name="_token" value="{{ csrf_token() }}"><button type="submit">提交</button></form>';
 });
-//  重定向  （原链接，新链接，状态码）
 Route::redirect('/foo','hello', 301);
 
-//  访问页面的两种方式
 Route::get('/hey', function () {
-   return view('hey', ['website' => 'CSRF验证失败']);
+   return view('hey', ['website' => 'Laravel']);
 })->name('hey');
 
 Route::view('view', 'hey', ['website' => 'Laravel 学院']);
@@ -142,12 +140,3 @@ Route::get('form_with_csrf_token', function () {
 Route::post('hello_from_form', function (){
     return 'hello laravel!';
 });
-
-
-//  访问控制器
-Route::prefix('controller')->group(function () {
-    Route::get('user/{id}', 'UserController@show');
-    //通过 __invoke() 方法实现单动作控制器
-    Route::get('show/{id}', 'ShowProfile');
-});
-
