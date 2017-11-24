@@ -20,6 +20,7 @@ Route::get('hello', function () {
    return 'Hello Laravel';
 });
 
+//  路由请求方式
 //      支持的请求方式
 //Route::get($uri, $callback);
 //Route::post($uri, $callback);
@@ -45,10 +46,11 @@ Route::redirect('/foo','hello', 301);
 
 Route::get('/hey', function () {
    return view('hey', ['website' => 'Laravel']);
-});
+})->name('hey');
 
 Route::view('view', 'hey', ['website' => 'Laravel 学院']);
 
+//  路由参数
 //  {id} 必填参数，{id?}可选参数（需要在闭包参数里设置默认值）
 Route::get('user/{id?}', function ($id = null) {
     return 'User ID is ' . $id;
@@ -61,4 +63,53 @@ Route::get('posts/{post}/comments/{comments}', function ($one, $two) {
 //  正则约束
 Route::get('users/{name}/{id}', function ($name, $id) {
     return 'name is ' . $name;
-})->where(['id' => '[0-9]+','name' =>'[a-zA-Z]+',]);
+})->where(['id' => '[0-9]+','name' =>'[a-zA-Z]+',])->name('users');
+
+
+//  命名路由
+
+//  根据已知路由名称，生成对应的URL
+Route::get('user/{id}/profile', function ($id) {
+    $url = route('users', [$id,4]);
+    return $url;
+})->name('profile');
+
+//route()  和  TP中的U方法   功能类似
+
+
+//  根据已知路由名称，重定向到  对应的URL
+Route::get('redirect', function () {
+    return redirect()->route('hey');
+});
+
+//  路由分组
+
+//  中间件
+Route::middleware(['first', 'second'])->group(function () {
+    Route::get('/', function () {
+        //  TODO
+    });
+
+    Route::get('user/profile', function () {
+        //  TODO
+    });
+});
+
+//  命名空间
+Route::namespace('Admin')->group(function () {
+    //  Controller Within The "App\Http\Controllers\Admin" Namespace
+});
+
+//  子域名路由
+Route::domain('{account}.blog.dev')->group(function () {
+   Route::get('user/{id}', function ($account, $id) {
+       return 'This is ' . $account . ' page of User ' . $id;
+   });
+});
+
+//  路由前缀
+Route::prefix('admin')->group(function () {
+    Route::get('users', function () {
+        return 'This is prefix route';
+    });
+});
