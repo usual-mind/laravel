@@ -152,3 +152,4 @@ Route::prefix('controller')->group(function () {
     Route::get('test', 'UserController@test');
 });
 
+Route::resource('posts', 'PostController');
