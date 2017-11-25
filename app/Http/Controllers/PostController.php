@@ -14,6 +14,7 @@ class PostController extends Controller
     public function index()
     {
         //
+        return 'this is index';
     }
 
     /**
@@ -24,6 +25,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return 'this is create';
     }
 
     /**
@@ -35,6 +37,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        return 'this is store';
     }
 
     /**
@@ -46,6 +49,7 @@ class PostController extends Controller
     public function show($id)
     {
         //
+        return 'this is show';
     }
 
     /**
@@ -57,6 +61,7 @@ class PostController extends Controller
     public function edit($id)
     {
         //
+        return 'this is edit';
     }
 
     /**
@@ -69,6 +74,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return 'this is update';
     }
 
     /**
@@ -80,5 +86,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        return 'this is destroy';
+    }
+
+    public function build()
+    {
+        return 'this is build';
     }
 }
