@@ -192,3 +192,27 @@ Route::post('userss', 'UserController@store');
 //  依赖注入 和 路由参数 共同使用
 //  需要将路由参数置于其它依赖之后
 Route::post('userss/{id}', 'UserController@store');
+
+
+//  通过路由闭包访问请求
+use Illuminate\Http\Request;
+Route::get('request', function (Request $request) {
+    $result = array(
+        $request->input('name'),
+        //  请求的路径信息
+        $request->path(),
+        //  验证请求路径是否与给定模式匹配
+        $request->is('request'),
+        //  返回完整URL  不带参数
+        'url' => $request->url(),
+        //  返回完整URL  带参数
+        'url_with_query' => $request->fullUrl(),
+        //  返回HTTP请求方式
+        'method' => $request->method(),
+        //  验证HTTP请求方式，是否匹配给定的字符串
+        'isMethod' => $request->isMethod('post'),
+        //  返回所有输入值
+        'input' => $request->all(),
+    );
+    return $result;
+});
