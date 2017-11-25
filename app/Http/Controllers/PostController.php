@@ -93,4 +93,9 @@ class PostController extends Controller
     {
         return 'this is build';
     }
+
+    public function add()
+    {
+        return 'this is add';
+    }
 }
