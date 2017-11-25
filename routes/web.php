@@ -176,6 +176,10 @@ Route::get('re_posts', function () {
 //  命名用处
 //  使用route()生成URL
 
+
+//  补充资源控制器(一定要在 该Route::resource 之前定义，否则会被覆盖)
+Route::get('admin_use/build', 'PostController@build');
+
 //  命名资源路由参数
 Route::resource('admin_use', 'PostController', ['names' => ['create' => 'admin'],'parameters' => ['user' => 'admin_user']]);
 Route::get('admins', function () {
