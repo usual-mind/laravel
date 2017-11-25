@@ -152,4 +152,32 @@ Route::prefix('controller')->group(function () {
     Route::get('test', 'UserController@test');
 });
 
-Route::resource('posts', 'PostController');
+//  资源控制器
+//Route::resource('posts', 'PostController');
+
+//  指定路由处理的动作子集
+//  允许
+//Route::resource('post', 'PostController', ['only' => ['index', 'show']]);
+////  允许除此以外的方法
+//Route::resource('post','PostController',  ['except' => ['create', 'store', 'update', 'destroy']]);
+
+//  命名资源路由
+
+Route::resource('posts', 'PostController', ['names' => ['create' => 'posts.build']]);
+Route::get('re_posts', function () {
+    return redirect()->route('posts.build');
+});
+
+//  参考  命名路由
+//Route::get('/hey', function () {
+//    return view('hey', ['website' => '中间件验证失败']);
+//})->name('hey');
+
+//  命名用处
+//  使用route()生成URL
+
+//  命名资源路由参数
+Route::resource('admin_use', 'PostController', ['names' => ['create' => 'admin'],'parameters' => ['user' => 'admin_user']]);
+Route::get('admins', function () {
+    return route('admin');
+});
