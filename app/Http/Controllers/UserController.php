@@ -46,7 +46,7 @@ class UserController extends Controller
         return view('user.profile', ['user' => '没有通过中间件']);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
 
         $name = $request->input('name');

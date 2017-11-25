@@ -186,5 +186,9 @@ Route::get('admins', function () {
     return route('admin');
 });
 
-
+//  依赖注入测试
 Route::post('userss', 'UserController@store');
+
+//  依赖注入 和 路由参数 共同使用
+//  需要将路由参数置于其它依赖之后
+Route::post('userss/{id}', 'UserController@store');
