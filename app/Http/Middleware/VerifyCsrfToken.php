@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //  排除检查路由
-        'foo'
+        'foo',
+        'posts'
     ];
 }
