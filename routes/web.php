@@ -185,3 +185,6 @@ Route::resource('admin_use', 'PostController', ['names' => ['create' => 'admin']
 Route::get('admins', function () {
     return route('admin');
 });
+
+
+Route::post('userss', 'UserController@store');
