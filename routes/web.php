@@ -54,9 +54,22 @@ Route::view('view', 'hey', ['website' => 'Laravel 学院']);
 
 //  路由参数
 //  {id} 必填参数，{id?}可选参数（需要在闭包参数里设置默认值）
-Route::get('user/{id?}', function ($id = null) {
-    return 'User ID is ' . $id;
+//Route::get('user/{id?}', function ($id = null) {
+//    return 'User ID is ' . $id;
+//});
+
+//  路由参数绑定(隐式绑定)
+//  由于类型声明了 Eloquent 模型 App\User，
+//  对应的变量名 $user 会匹配路由片段中的 {user}，
+//  这样，Laravel 会自动注入与请求 URI 中传入的 ID 对应的用户模型实例。
+Route::get('user/{user}', function (\App\User $user) {
+    dd($user);
 });
+
+//  显示绑定(注册了显示绑定之后，隐式绑定依然可用)
+//Route::get('user/{user_model}', function (\App\User $user) {
+//    dd($user);
+//});
 
 Route::get('posts/{post}/comments/{comments}', function ($one, $two) {
     return 'one is ' . $one . ';two is ' . $two;
@@ -188,10 +201,9 @@ Route::get('admins', function () {
 
 //  依赖注入测试
 Route::post('userss', 'UserController@store');
-
 //  依赖注入 和 路由参数 共同使用
 //  需要将路由参数置于其它依赖之后
-Route::post('userss/{id}', 'UserController@store');
+//Route::post('userss/{id}', 'UserController@store');
 
 
 //  通过路由闭包访问请求
@@ -216,3 +228,4 @@ Route::get('request', function (Request $request) {
     );
     return $result;
 });
+
