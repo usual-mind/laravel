@@ -62,8 +62,9 @@ Route::view('view', 'hey', ['website' => 'Laravel 学院']);
 //  由于类型声明了 Eloquent 模型 App\User，
 //  对应的变量名 $user 会匹配路由片段中的 {user}，
 //  这样，Laravel 会自动注入与请求 URI 中传入的 ID 对应的用户模型实例。
-Route::get('user/{user}', function (\App\User $user) {
-    dd($user);
+//  主要是 模型声明的变量名 $test，要与路由参数名 {test} 一致
+Route::get('user/{test}', function (\App\User $test) {
+    dd($test);
 });
 
 //  显示绑定(注册了显示绑定之后，隐式绑定依然可用)

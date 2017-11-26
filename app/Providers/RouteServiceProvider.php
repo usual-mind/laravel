@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +24,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //  正则验证，所有id都要为数字
         Route::pattern('id', '[0-9]+');
         parent::boot();
+        //  注册显示绑定（隐式绑定，依然可用）
+        Route::model('user_model', User::class);
     }
 
     /**
