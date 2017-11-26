@@ -206,6 +206,8 @@ Route::post('userss', 'UserController@store');
 //  需要将路由参数置于其它依赖之后
 //Route::post('userss/{id}', 'UserController@store');
 
+//  依赖注入（edit方法  注入User模型，可实现路由模型绑定的功能）
+Route::get('user_edit/{user}', 'UserController@edit');
 
 //  通过路由闭包访问请求
 use Illuminate\Http\Request;
