@@ -211,9 +211,24 @@ Route::get('user_edit/{user}', 'UserController@edit');
 
 //  通过路由闭包访问请求
 use Illuminate\Http\Request;
-Route::get('request', function (Request $request) {
+Route::post('request', function (Request $request) {
+//    dd($request);
     $result = array(
-        $request->input('name'),
+        //  返回 POST + GET  参数组
+        'input1' => $request->input(),
+        //  返回其值
+        'input2' => $request->name,
+        //  返回 POST参数组
+        'post' => $request->post(),
+        //  返回  GET参数组
+        'query' => $request->query(),
+        //  返回 POST + GET 指定参数值
+        'get' => $request->get('name'),
+        //  返回 POST + GET 除指定参数外的参数组
+        //  注：only 方法返回所有你想要获取的参数键值对，不过，如果你想要获取的参数不存在，则对应参数会被过滤掉。
+        'except' => $request->except('name'),
+        //  返回 POST + GET 指定参数组
+        'only' => $request->only('name','sex'),
         //  请求的路径信息
         $request->path(),
         //  验证请求路径是否与给定模式匹配
@@ -228,6 +243,18 @@ Route::get('request', function (Request $request) {
         'isMethod' => $request->isMethod('post'),
         //  返回所有输入值
         'input' => $request->all(),
+        //  判断参数在请求中是否存在(POST + GET)
+        'isset' => $request->has('sex'),
+        //  支持以数组形式查询多个参数，只有当参数都存在时，才会返回 true
+        'issets' => $request->has(['name', 'email']),
+        //  判断参数存在且参数值不为空
+        'filled' => $request->filled('name'),
+        //  访问 浏览器参数
+//        'server' => $request->server(),
+        //  header 头 数组
+        'header' => $request->header(),
+        //  header 头 指定参数是否存在
+        'hasHeader' => $request->hasHeader('host'),
     );
     return $result;
 });
