@@ -259,3 +259,17 @@ Route::post('request', function (Request $request) {
     return $result;
 });
 
+Route::get('login', 'UserController@login');
+
+//  Cookie
+Route::get('cookie/add', function () {
+    $minutes = 2 * 60;
+//    return response('学习 Laravel')->cookie('name', '哈喽', $minutes);
+    $cookie = cookie('name', '上善若水', $minutes);
+    return response('欢迎来到 幻想世界')->cookie($cookie);
+});
+
+Route::get('cookie/get', function (Request $request) {
+    $cookie = $request->cookie('name');
+    dd($cookie);
+});

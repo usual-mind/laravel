@@ -57,4 +57,21 @@ class UserController extends Controller
     {
         return $user;
     }
+
+    public function index()
+    {
+        return view('index');
+    }
+
+    public function login(Request $request)
+    {
+//        $username = $request->input('username');
+//        $password = $request->input('password');
+//        if ($username != 'admin' || $password != '1234')
+//            return redirect('index')->withInput($request->except('password'));
+//        return '登陆成功';
+        if($request->old())
+        $request->flash();
+
+    }
 }
