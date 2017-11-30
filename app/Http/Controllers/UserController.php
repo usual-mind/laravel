@@ -82,11 +82,14 @@ class UserController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $photo = $request->file('photo');
             $extension = $photo->extension();
-            $store_result = $photo->store('photo');
-//            $store_result = $photo->storeAs('photo', 'test.jpg');
+//            $store_result = $photo->store('photo');
+            $store_result = $photo->storeAs('photo', 'test.jpg','public');
+            $path = $photo->path();
+
             $output = [
                 'extension' => $extension,
-                'store_result' => $store_result
+                'store_result' => $store_result,
+                'path' => $path,
             ];
             print_r($output);
             exit();
