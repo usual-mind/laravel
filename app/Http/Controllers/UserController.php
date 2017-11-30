@@ -60,7 +60,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('index');
+        return view('user.index');
     }
 
     public function login(Request $request)
@@ -70,8 +70,28 @@ class UserController extends Controller
 //        if ($username != 'admin' || $password != '1234')
 //            return redirect('index')->withInput($request->except('password'));
 //        return '登陆成功';
-        if($request->old())
-        $request->flash();
+        //  $request->file('name') <=> $request->name
+        //  !!!!注意，使用hasFile() 表单需要添加一个属性 enctype="multipart/form-data"
+        //  $request->hasFile('name')     判断文件在请求中是否存在
+        //  $request->file('name')->isValid()   判断文件在上传过程中是否出错
+        //  $request->photo->path();        路径
+        //  $request->photo->extension();   拓展名
+        $file1 = $request->file('photo');
+        $file2 = $request->photo;
+//        return array($file1,$file2);
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $photo = $request->file('photo');
+            $extension = $photo->extension();
+            $store_result = $photo->store('photo');
+//            $store_result = $photo->storeAs('photo', 'test.jpg');
+            $output = [
+                'extension' => $extension,
+                'store_result' => $store_result
+            ];
+            print_r($output);
+            exit();
+        }
+        exit('未获取到上传文件或者上传过程出错');
 
     }
 }

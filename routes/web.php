@@ -259,8 +259,8 @@ Route::post('request', function (Request $request) {
     return $result;
 });
 
-Route::get('login', 'UserController@login');
-
+Route::get('index', 'UserController@index');
+Route::post('form', 'UserController@login');
 //  Cookie
 Route::get('cookie/add', function () {
     $minutes = 2 * 60;
