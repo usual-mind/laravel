@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<form method="post" action="{{ url('form') }}">
+<form method="post"  enctype="multipart/form-data"  action="{{ url('form') }}">
     {{ csrf_field() }}
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
