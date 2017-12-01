@@ -12,6 +12,7 @@ class EncryptCookies extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        //  排除加密，例如某个cookie
+        'author',
     ];
 }
