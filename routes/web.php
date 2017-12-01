@@ -12,9 +12,9 @@
 */
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('hello', function () {
    return 'Hello Laravel';
@@ -259,6 +259,7 @@ Route::post('request', function (Request $request) {
     return $result;
 });
 
+//  文件上传
 Route::get('index', 'UserController@index');
 Route::post('form', 'UserController@login');
 //  Cookie
@@ -272,4 +273,45 @@ Route::get('cookie/add', function () {
 Route::get('cookie/get', function (Request $request) {
     $cookie = $request->cookie('name');
     dd($cookie);
+});
+
+
+//  HTTP响应
+Route::get('/', function () {
+//    return 'hello world';
+    return [1,2,3];
+});
+
+//Response 对象
+Route::get('cookie/response', function () {
+//    return response('Hello World',200)
+//        ->header('Content-Type', 'application/json');
+    //  添加响应头
+//    return response('Hello Laravel')
+//        ->header('Content-Type', 'text/html')
+//        ->header('X-Header-One', 'Header Value1')
+//        ->header('X-Header-Two', 'Header Value2');
+
+    //  指定头信息组添加到响应中
+    return response('Hello PHP')
+        ->withHeaders([
+           'Content-Type' => 'text/plain',
+            'X-Header-X'  => 'header value',
+            'X-header-Y'  => 'header value',
+        ]);
+});
+
+//  添加Cookie 到响应
+Route::get('cookie/setCookie', function () {
+    //  使用 cookie() 生成Cookie 并将其添加到响应实例中
+//    return response('set cookie')
+//        ->header('Content-Type', 'text/plain')
+//        //  ->cookie($name, $value, $minutes, $path, $domain, $secure, $httpOnly)
+//        ->cookie('username','喝哈', 60);
+
+    //  使用 Cookie 门面以 "队列"形式，将Cookie 添加到响应中
+    \Illuminate\Support\Facades\Cookie::queue(Cookie::make('site', 'Laravel',1));
+    \Illuminate\Support\Facades\Cookie::queue('author','Sun',1);
+    return response('Hello', 200)
+        ->header('Content-Type', 'text/plain');
 });
