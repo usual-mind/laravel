@@ -345,3 +345,37 @@ Route::get('img', function () {
    return response()->file(storage_path('app/photo/test.jpg'));
 });
 
+//  视图响应
+Route::get('view/response', function () {
+    return response()
+        ->view('hey',['website' => '视图响应'])
+        ->header('Content-Type', 'text/html');
+});
+
+
+//  Json响应
+Route::get('json/response', function () {
+   //   json 方法会自动将 Content-Type 头设置为 application/json，
+    //  并使用 PHP 函数 json_encode 方法将给定数组转化为 JSON 格式数据
+//    return response()->json([
+//        'name' => 'Sun',
+//       'status' => '200'
+//   ]) ;
+
+    //  Laravel 默认返回 json 数据
+//    return array(
+//        'name' => 'Sun',
+//       'status' => '200'
+//    );
+
+    //  返回的还是字符串
+//    return response('hello')
+//        ->header('Content-Type', 'application/json');
+    //  JSONP 跨域请求
+//    return response()->json([
+//        'name' => 'Sun',
+//       'status' => '200'
+//    ])->withCallback('www.baidu.com');
+    return response()
+        ->jsonp($request->input('callback'), ['name' => 'Abigail', 'state' => 'CA']);
+});
