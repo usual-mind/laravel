@@ -65,7 +65,7 @@ Route::view('view', 'hey', ['website' => 'Laravel 学院']);
 //  主要是 模型声明的变量名 $test，要与路由参数名 {test} 一致
 Route::get('user/{test}', function (\App\User $test) {
     dd($test);
-});
+})->name('test');
 
 //  显示绑定(注册了显示绑定之后，隐式绑定依然可用)
 //Route::get('user/{user_model}', function (\App\User $user) {
@@ -315,3 +315,33 @@ Route::get('cookie/setCookie', function () {
     return response('Hello', 200)
         ->header('Content-Type', 'text/plain');
 });
+
+//  重定向
+Route::get('redirect', function () {
+    //  通过命名路由，重定向到指定路由
+    //   return redirect()->route('hey');
+    //  通过 Eloquent 模型填充参数
+//    return redirect()->route('test',1);
+    //  重定向到控制器动作
+    //  和 route 方法一样，如果控制器路由要求参数，你可以将参数作为第二个参数传递给 action 方法
+    return redirect()->action('PostController@create',['id'=>1]);
+
+});
+
+//  带一次性 Session 数据的重定向
+Route::post('user/profiles', function (Request $request) {
+    $request->flush();
+//    dd($request->all());
+    return redirect('dashboard')->with('status','profile updated!');
+});
+
+//  下载文件
+Route::get('download/response', function() {
+    return response()->download(storage_path('app/photo/test.jpg'), '测试图片.jpg');
+});
+
+//  在浏览器显示文件，例如图片或 PDF，而不需要下载
+Route::get('img', function () {
+   return response()->file(storage_path('app/photo/test.jpg'));
+});
+
