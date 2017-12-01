@@ -17,5 +17,6 @@ class VerifyCsrfToken extends Middleware
         'posts',
         'userss',
         'request',
+        'user/profiles',
     ];
 }
