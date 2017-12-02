@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
             'create' => 'add',
             'edit'   => 'gai',
         ]);
+
+        //  在视图间共享数据
+        View::share('key','value');
 
     }
 

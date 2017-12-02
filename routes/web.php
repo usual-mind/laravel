@@ -386,3 +386,25 @@ Route::get('macro/response', function () {
     return response()->caps('LaravelAcademy');
 });
 
+Route::get('blade', function () {
+    return view('child',['name' => 'sun<br />']);
+});
+
+
+Route::get('greeting', function () {
+//    //  可判断 视图是否存在
+//    if (\Illuminate\Support\Facades\View::exists('greet'))
+//        return view('greeting', ['name' => 'Laravel']);
+//    else
+//        return response('不存在','404');
+
+    //  返回第一个存在的视图
+//    return \Illuminate\Support\Facades\View::first(['greeting','child'],['name' => '返回数组中第一个存在的视图']);
+
+    //  传递数据到视图
+    //  方法一：
+//    return view('greeting',['name'=>'嗯哼']);
+    //  方法二：
+//    return view('greeting')->with('name', 'World');
+    return view('greeting')->with(['name' => 'Tom']);
+});
