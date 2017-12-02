@@ -354,7 +354,7 @@ Route::get('view/response', function () {
 
 
 //  Json响应
-Route::get('json/response', function () {
+Route::get('json/response', function (Request $request) {
    //   json 方法会自动将 Content-Type 头设置为 application/json，
     //  并使用 PHP 函数 json_encode 方法将给定数组转化为 JSON 格式数据
 //    return response()->json([
@@ -379,3 +379,10 @@ Route::get('json/response', function () {
     return response()
         ->jsonp($request->input('callback'), ['name' => 'Abigail', 'state' => 'CA']);
 });
+
+//  响应宏
+//  定义一个自定义的可以在多个路由和控制器中复用的响应
+Route::get('macro/response', function () {
+    return response()->caps('LaravelAcademy');
+});
+
